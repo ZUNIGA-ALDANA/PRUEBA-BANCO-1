@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'my-github-credentials'
+                git branch: 'development', credentialsId: 'my-github-credentials'
             }
         }
         stage('Analyze Dependabot Alerts') {
