@@ -26,7 +26,7 @@ pipeline {
                 script {
                     def response = sh(script: """
                     curl -H "Accept: application/vnd.github+json" \
-                    -H "Authorization: token TOKENDZ" \
+                    -H "Authorization: token NEWTOKEN" \
                     https://api.github.com/repos/ZUNIGA-ALDANA/PRUEBA-BANCO-1/dependabot/alerts
                     """, returnStdout: true).trim()
                     
