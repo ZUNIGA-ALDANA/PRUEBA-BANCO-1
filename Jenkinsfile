@@ -24,7 +24,7 @@ pipeline {
         stage('Check Dependabot Alerts') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'NEWTOKEN', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'TOKENDZ', variable: 'GITHUB_TOKEN')]) {
                         def response = sh(script: """
                         curl -H "Accept: application/vnd.github+json" \
                         -H "Authorization: token ${GITHUB_TOKEN}" \
