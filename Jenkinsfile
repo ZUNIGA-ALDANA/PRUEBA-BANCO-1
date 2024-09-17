@@ -1,10 +1,5 @@
 pipeline {
     agent any
-
-    environment {
-        GITHUB_TOKEN = credentials('DENISSE_TOKEN') // Asegúrate de haber agregado el token en Jenkins
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -26,22 +21,21 @@ pipeline {
                 echo 'Prueba de Stage4'
             }
         }
-
-        stage('Fetch Dependabot Alerts') {
+        stage('Check Dependabot Alerts') {
             steps {
                 script {
-                    def vulnerabilities = dependabotScan() // Asumiendo que dependabotScan() es una función proporcionada por el plugin
-                    if (vulnerabilities.size() > 0) {
-                        echo "Se han encontrado las siguientes vulnerabilidades:"
-                        vulnerabilities.each { vulnerability ->
-                            echo "- ${vulnerability.dependency}: ${vulnerability.severity} - ${vulnerability.title}"
-                        }
-                        error "Se han encontrado vulnerabilidades críticas. Deteniendo el pipeline."
-                    } else {
-                        echo "No se han encontrado vulnerabilidades."
-                    }
+                    def response = sh(script: """
+                    curl -H "Accept: application/vnd.github+json" \
+                    -H "Authorization: token DENISSE_TOKEN" \
+                    https://api.github.com/repos/ZUNIGA-ALDANA/PRUEBA-BANCO-1/dependabot/alerts
+                    """, returnStdout: true).trim()
+                    
+                    echo "Dependabot Alerts: ${response}"
                 }
             }
         }
+        
     }
 }
+
+        
