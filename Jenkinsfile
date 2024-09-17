@@ -3,8 +3,22 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/tu_usuario/tu_repositorio.git'
-                echo 'Código clonado exitosamente!'
+                echo 'Prueba de Stage1'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Prueba de Stage2'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Prueba de Stage3'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Prueba de Stage4'
             }
         }
     }
